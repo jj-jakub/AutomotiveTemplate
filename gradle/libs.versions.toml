@@ -1,0 +1,30 @@
+[versions]
+agp = "8.4.0-alpha01"
+carUiLib = "2.5.1"
+kotlin = "1.9.0"
+coreKtx = "1.12.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+
+automotive = "1.2.0"
+jetbrainsKotlinJvm = "1.9.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+car-ui-lib = { module = "com.android.car.ui:car-ui-lib", version.ref = "carUiLib" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+android-automotive = { module = "androidx.car.app:app-automotive", version.ref = "automotive" }
+android-shared-car-library = { module = "androidx.car.app:app", version.ref = "automotive" }
+android-auto = { module = "androidx.car.app:app-projected", version.ref = "automotive" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+

@@ -1,7 +1,9 @@
 package com.example.automotivetemplate.src.di
 
 import android.content.Context
+import com.example.automotivetemplate.src.data.DefaultAppInfoRepository
 import com.example.automotivetemplate.src.data.DefaultCarInfoRepository
+import com.example.automotivetemplate.src.domain.AppInfoRepository
 import com.example.automotivetemplate.src.domain.CarInfoRepository
 import com.example.automotivetemplate.src.domain.usecases.GetManufacturerAssistancePhone
 import com.example.automotivetemplate.src.presentation.carappscreen.CarAppScreenViewModel
@@ -19,11 +21,13 @@ fun startKoin(applicationContext: Context) {
 }
 
 private val coreModule = module {
+    single<AppInfoRepository> { DefaultAppInfoRepository() }
     single<CarInfoRepository> { DefaultCarInfoRepository(androidContext()) }
     single { GetManufacturerAssistancePhone() }
 
     viewModel<CarAppScreenViewModel> {
         CarAppScreenViewModel(
+            appInfoRepository = get(),
             carInfoRepository = get(),
             getManufacturerAssistancePhone = get(),
         )

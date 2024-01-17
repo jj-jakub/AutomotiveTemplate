@@ -4,6 +4,7 @@ import android.car.VehicleGear
 import android.car.VehicleIgnitionState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.automotivetemplate.src.domain.AppInfoRepository
 import com.example.automotivetemplate.src.domain.CarInfoRepository
 import com.example.automotivetemplate.src.domain.usecases.DEFAULT_ASSISTANCE_PHONE
 import com.example.automotivetemplate.src.domain.usecases.GetManufacturerAssistancePhone
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.round
 
 class CarAppScreenViewModel(
+    private val appInfoRepository: AppInfoRepository,
     private val carInfoRepository: CarInfoRepository,
     private val getManufacturerAssistancePhone: GetManufacturerAssistancePhone,
 ) : ViewModel() {
@@ -49,6 +51,8 @@ class CarAppScreenViewModel(
     fun onPermissionsGranted() {
         collectData()
     }
+
+    fun getRequiredPermissions() = appInfoRepository.getRequiredPermissions()
 
     private fun collectData() {
         collectVehicleManufacturerState()

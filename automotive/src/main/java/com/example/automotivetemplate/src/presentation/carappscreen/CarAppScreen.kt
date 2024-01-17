@@ -1,9 +1,8 @@
 package com.example.automotivetemplate.src.presentation.carappscreen
 
-import android.Manifest
-import android.car.Car
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.pm.PackageManager.PERMISSION_DENIED
 import android.net.Uri
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
@@ -126,19 +125,12 @@ class CarAppScreen(carContext: CarContext) : Screen(carContext), KoinComponent {
 
     private fun requestPermissions() {
         runCatching {
-            carContext.requestPermissions(
-                listOf(
-                    Car.PERMISSION_SPEED,
-                    Car.PERMISSION_CAR_INFO,
-                    Car.PERMISSION_ENERGY,
-                    Car.PERMISSION_READ_DISPLAY_UNITS,
-                    Car.PERMISSION_ENERGY_PORTS,
-                    Car.PERMISSION_POWERTRAIN,
-                    Manifest.permission.CALL_PHONE,
-                )
-            ) { grantedPermissions, rejectedPermissions ->
-                if (grantedPermissions.isNotEmpty()) {
-                    carAppScreenViewModel.onPermissionsGranted()
+            val requiredPermissions = carAppScreenViewModel.getRequiredPermissions()
+            if (requiredPermissions.any { carContext.checkSelfPermission(it) == PERMISSION_DENIED }) {
+                carContext.requestPermissions(requiredPermissions) { grantedPermissions, rejectedPermissions ->
+                    if (grantedPermissions.isNotEmpty()) {
+                        carAppScreenViewModel.onPermissionsGranted()
+                    }
                 }
             }
         }

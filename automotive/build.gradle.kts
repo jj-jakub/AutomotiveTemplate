@@ -33,12 +33,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    useLibrary("android.car")
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.car.ui.lib)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.android.automotive)
     implementation(libs.android.shared.car.library)
